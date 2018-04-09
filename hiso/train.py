@@ -69,7 +69,7 @@ def train(dataloader,testloader):
 
     a_probs,f_probs,a_labels,f_labels= None, None,None,None
     total_loss = []
-    for epoch in range(params.epochs):
+    for epoch in tqdm(range(params.epochs)):
         # set lr dynamicly
         scheduler.step()
         for batch_idx, samples in enumerate(dataloader, 0):

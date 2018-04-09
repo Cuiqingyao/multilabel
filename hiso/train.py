@@ -176,9 +176,9 @@ def vis_log(probs, labels, name='', numpy_data=False):
 
 if __name__ == '__main__':
     # load params
-    trainset = UGCDataset(file_path='../docs/data/HML_data_clean.dat',
-            voc_path='../docs/data/voc.json',
-            pos_path='../docs/data/pos.json',
+    trainset = UGCDataset(file_path='multilabel/docs/data/HML_data_clean.dat',
+            voc_path='multilabel/docs/data/voc.json',
+            pos_path='multilabel/docs/data/pos.json',
             cv=list(range(8)))
     
     train_loader = DataLoader(trainset,

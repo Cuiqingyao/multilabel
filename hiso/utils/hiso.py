@@ -145,7 +145,7 @@ class HISO(nn.Module):
         # conv layer
         wd  = self.word_conv(wd)
         pos = self.pos_conv(pos)
-        #print(wd.size())
+        print(wd.size())
 
         # Bi-GRU
         h0 = self.init_hidden(wd.size()[0])

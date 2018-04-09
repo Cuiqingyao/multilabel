@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser(description='parameters for model.')
 #########################
 # model parameters
 #########################
-parser.add_argument('--ghid-size', type=int, default=144, help='RNN hidden size')
+parser.add_argument('--ghid-size', type=int, default=96, help='RNN hidden size')
 parser.add_argument('--glayer', type=int, default=2, help='layer number of RNN')
 parser.add_argument('--auxiliary-labels', type=int, default=3, help='dim of auxiliary labels')
 parser.add_argument('--label-dim', type=int, default=6, help='dim of final labels')

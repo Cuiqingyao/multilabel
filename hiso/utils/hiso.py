@@ -97,7 +97,7 @@ class HISO(nn.Module):
         filter_num = [50, 50, 48]
         output, min_len = [], x.size()[-1]
         for i, k_s in enumerate(kernel_size):
-            cur_res = self.fconv1d(x)
+            cur_res = self.fconv1d[i](x)
 
             min_len = min(min_len, cur_res.size()[-1])
             output.append(cur_res)

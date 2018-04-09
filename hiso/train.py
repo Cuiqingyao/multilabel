@@ -186,9 +186,9 @@ if __name__ == '__main__':
             shuffle=True,
             num_workers=params.num_workers)
     
-    testset = UGCDataset(file_path='../docs/data/HML_data_clean.dat',
-            voc_path='../docs/data/voc.json',
-            pos_path='../docs/data/pos.json',
+    testset = UGCDataset(file_path='multilabel/docs/data/HML_data_clean.dat',
+            voc_path='multilabel/docs/data/voc.json',
+            pos_path='multilabel/docs/data/pos.json',
             cv=[8,9])
     
     test_loader = DataLoader(testset,

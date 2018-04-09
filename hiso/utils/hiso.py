@@ -90,7 +90,7 @@ class HISO(nn.Module):
         '''
         # embed_dim[N, L, C] --> [N, C, L]
         x = torch.transpose(x, 1, 2)
-        kernel_size = [1, 2]
+        kernel_size = [2, 3, 4]
         filter_num = [50, 50, 48]
         output, min_len = [], x.size()[-1]
         for i, k_s in enumerate(kernel_size):

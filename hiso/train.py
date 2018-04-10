@@ -37,7 +37,7 @@ from utils.visualize import Visualizer
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
-vis = Visualizer(env='default',port=8099,log_dir="runs/%s"%time.strftime("%m-%d-%H:%M:%S", time.localtime()))
+vis = Visualizer(env='default',port=8099,log_dir="myruns/%s"%time.strftime("%m-%d-%H:%M:%S", time.localtime()))
 use_cuda = torch.cuda.is_available()
 
 

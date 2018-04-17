@@ -12,6 +12,7 @@ import torch.nn.functional as F
 from torch.utils.data import Dataset,DataLoader
 from torch.optim.lr_scheduler import MultiStepLR
 from utils.visualize import Visualizer
+from gensim.models import Word2Vec
 import os
 import sys
 from tqdm import tqdm
@@ -20,7 +21,7 @@ os.environ['CUDA_DEVICE_ORDER']='PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES']='0'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-experimental_msg = 'RAND_NULL'
+experimental_msg = 'W2V_NULL'
 vis = Visualizer(env='SSWE',port=8099,log_dir='myruns/sswe_%s_%s'%(time.strftime('%m-%d-%H-%M',time.localtime()),experimental_msg))
 
 

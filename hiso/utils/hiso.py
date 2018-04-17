@@ -13,7 +13,10 @@ import numpy as np
 from torch.autograd import Variable
 import torch.nn.functional as F
 from gensim.models import Word2Vec
-
+import os
+import sys
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
 class HISO(nn.Module):
     def __init__(self, opt):
         super(HISO, self).__init__()
@@ -112,8 +115,8 @@ class HISO(nn.Module):
         init embedding layer from random|word2vec|sswe
         '''
         if 'w2v' in self.opt.init_embed:
-            weights = Word2Vec.load('../docs/data/w2v_word_100d_5win_5min')
-            voc = json.load(open('../docs/data/voc.json','r'))['voc']
+            weights = Word2Vec.load('%s/docs/data/w2v_word_100d_5win_5min'%BASE_DIR)
+            voc = json.load(open('%s/docs/data/voc.json'%BASE_DIR,'r'))['voc']
             print(weights[list(voc.keys())[3]])
 
             word_weight = np.zeros((len(voc),self.opt.embed_dim))
@@ -123,8 +126,8 @@ class HISO(nn.Module):
             # print(word_weight[3])
             self.wd_embed.weight.data.copy_(torch.from_numpy(word_weight))
 
-            weights = Word2Vec.load('../docs/data/w2v_pos_100d_5win_5min')
-            pos = json.load(open('../docs/data/pos.json','r'))['voc']
+            weights = Word2Vec.load('%s/docs/data/w2v_pos_100d_5win_5min'%BASE_DIR)
+            pos = json.load(open('%s/docs/data/pos.json'%BASE_DIR,'r'))['voc']
             pos_weight = np.zeros((len(pos),self.opt.embed_dim))
             for ps,idx in pos.items():
                 vec = weights[ps] if ps in weights else np.random.randn(self.opt.embed_dim)
@@ -132,7 +135,7 @@ class HISO(nn.Module):
             self.pos_embed.weight.data.copy_(torch.from_numpy(pos_weight))
 
         elif 'sswe' in self.opt.init_embed:
-            word_weight = pickle.load(open('../docs/model/%s'% self.opt.embed_path,'rb'))
+            word_weight = pickle.load(open('%s/docs/model/%s'%(BASE_DIR, self.opt.embed_path),'rb'))
             self.wd_embed.weight.data.copy_(torch.from_numpy(word_weight))
         # random default
 

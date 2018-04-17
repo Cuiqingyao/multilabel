@@ -13,7 +13,8 @@ import json
 import os
 import time
 from math import ceil
-
+import sys
+import os
 import numpy as np
 from sklearn import linear_model as lm
 from utils.metrics import (Average_precision, Coverage, Hamming_loss,
@@ -37,7 +38,9 @@ from utils.visualize import Visualizer
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
-vis = Visualizer(env='default',port=8099,log_dir="./myruns/%s"%time.strftime("%m-%d-%H:%M:%S", time.localtime()))
+#BASE_DIR = 
+experimental_msg1 = 'SSWE_RAND_NULL'
+vis = Visualizer(env='default',port=8099,log_dir="myruns/%s_%s" % (time.strftime("%m-%d-%H:%M:%S", time.localtime()),experimental_msg1))
 use_cuda = torch.cuda.is_available()
 
 

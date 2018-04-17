@@ -12,12 +12,16 @@ import torch.nn.functional as F
 from torch.utils.data import Dataset,DataLoader
 from torch.optim.lr_scheduler import MultiStepLR
 from utils.visualize import Visualizer
-
+import os
+import sys
+from tqdm import tqdm
 # 设置gpu
 os.environ['CUDA_DEVICE_ORDER']='PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES']='1'
-
-vis = Visualizer(env='SSWE',port=8099,log_dir='runs/sswe_%s'%(time.strftime('%m-%d-%H-%M',time.localtime())))
+os.environ['CUDA_VISIBLE_DEVICES']='0'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+experimental_msg = 'RAND_NULL'
+vis = Visualizer(env='SSWE',port=8099,log_dir='myruns/sswe_%s_%s'%(time.strftime('%m-%d-%H-%M',time.localtime()),experimental_msg))
 
 
 class Score(nn.Module):
@@ -78,8 +82,8 @@ class SSWE(nn.Module):
         init embeding weight using Word2Vec|rand
         '''
         if 'w2v' in self.opt.init_sswe_embed:
-            weights = Word2Vec.load('../docs/data/w2v_word_100d_5win_5min')
-            voc = json.load(open('../docs/data/voc.json','r'))['voc']
+            weights = Word2Vec.load('%s/docs/data/w2v_word_100d_5win_5min'%BASE_DIR)
+            voc = json.load(open('%s/docs/data/voc.json'%BASE_DIR,'r'))['voc']
 
             word_weight = np.zeros((self.opt.voc_size, self.opt.embed_dim))
             for wd,idx in voc.items():
@@ -199,9 +203,9 @@ def trainSSWE():
     use_cuda = torch.cuda.is_available()
     # syn_alpha = 0.7
 
-    sem_data = SemDataSet('../docs/data/HML_data_clean.dat',
-            voc_path='../docs/data/voc.json',
-            pos_path='../docs/data/pos.json')
+    sem_data = SemDataSet('%s/docs/data/HML_data_clean.dat'%BASE_DIR,
+            voc_path='%s/docs/data/voc.json'%BASE_DIR,
+            pos_path='%s/docs/data/pos.json'%BASE_DIR)
     loader = DataLoader(sem_data,shuffle=True,batch_size=64)
 
     sswe = SSWE(params)
@@ -214,7 +218,7 @@ def trainSSWE():
     scheduler = MultiStepLR(optimizer,milestones=[int(0.3*params.epochs),int(0.7*params.epochs)],gamma=0.1)
 
     total_loss = []
-    for epoch in range(params.epochs):
+    for epoch in tqdm(range(params.epochs)):
         scheduler.step()
         for batch_idx, samples in enumerate(loader,0):
             v_gram = Variable(samples['gram'].cuda() if use_cuda else samples['gram'])
@@ -233,9 +237,9 @@ def trainSSWE():
                 print
     # save model
     timestamp = time.strftime('%m-%d-%H:%M',time.localtime())
-    torch.save(sswe.state_dict(),'../docs/model/sswe_%s'%timestamp)
+    torch.save(sswe.state_dict(),'%s/docs/model/sswe_%s'%(BASE_DIR,timestamp))
     lookup = sswe.lookup.weight.data.cpu().numpy() 
-    pickle.dump(lookup, open('../docs/model/lookup_alpha%s_%s'%(syn_alpha, timestamp),'wb'))
+    pickle.dump(lookup, open('%s/docs/model/lookup_alpha%s_%s'%(BASE_DIR, params.sswe_alpha, timestamp),'wb'))
     
 if __name__ == '__main__':
     trainSSWE()

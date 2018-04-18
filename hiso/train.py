@@ -39,7 +39,7 @@ os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
 #BASE_DIR = 
-experimental_msg1 = 'W2V_RAND_POS'
+experimental_msg1 = 'SSWE_W2V_NULL_alpha07'
 vis = Visualizer(env='default',port=8099,log_dir="myruns/%s_%s" % (time.strftime("%m-%d-%H:%M:%S", time.localtime()),experimental_msg1))
 use_cuda = torch.cuda.is_available()
 

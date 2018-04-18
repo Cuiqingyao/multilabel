@@ -16,7 +16,7 @@ parser.add_argument('--final-weight', type=float, default=1, help='loss weight f
 parser.add_argument('--max-margin', type=float, default=0.9, help='max probs of margin')
 parser.add_argument('--min-margin', type=float, default=0.1, help='min probs of margin')
 parser.add_argument('--loss-alpha', type=float, default=1e-2, help='discount of auxi_margin_loss')
-parser.add_argument('--sswe-alpha', type=float, default=0.7, help='trade-off factor by syn_loss of sswe model')
+parser.add_argument('--sswe-alpha', type=float, default=0.5, help='trade-off factor by syn_loss of sswe model')
 
 
 #########################
@@ -42,7 +42,7 @@ parser.add_argument('--log-interval', type=int, default=10, help='report interva
 parser.add_argument('--data', type=str, default='../docs/data/', help='dataset dirname')
 parser.add_argument('--train-file', type=str, default='HML_JD_ALL.new.dat', help='file name of train dataset')
 parser.add_argument('--eval-file', type=str, default='test_2000.tsv', help='file name of eval dataset')
-parser.add_argument('--embed-path', type=str, default='lookup_alpha0.5_04-16-23:33',help='embedding file from w2v|sswe')
+parser.add_argument('--embed-path', type=str, default='lookup_alpha0.6_04-18-02:44',help='embedding file from w2v|sswe')
 parser.add_argument('--voc-size', type=int, default=23757, help='word vocab size')
 parser.add_argument('--pos-size', type=int, default=57, help='pos vocab size')
 parser.add_argument('--save_name', type=str, default=time.strftime('%m-%d_%H:%M.pth'), help='name of saved model ')

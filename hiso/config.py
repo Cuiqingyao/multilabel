@@ -16,7 +16,7 @@ parser.add_argument('--final-weight', type=float, default=1, help='loss weight f
 parser.add_argument('--max-margin', type=float, default=0.9, help='max probs of margin')
 parser.add_argument('--min-margin', type=float, default=0.1, help='min probs of margin')
 parser.add_argument('--loss-alpha', type=float, default=1e-2, help='discount of auxi_margin_loss')
-parser.add_argument('--sswe-alpha', type=float, default=0.5, help='trade-off factor by syn_loss of sswe model')
+parser.add_argument('--sswe-alpha', type=float, default=0.7, help='trade-off factor by syn_loss of sswe model')
 
 
 #########################
@@ -29,9 +29,9 @@ parser.add_argument('--lr', type=float, default=5e-3, help='initial learning rat
 parser.add_argument('--clip', type=float, default=0, help='clip learning rate')
 parser.add_argument('--epochs', type=int, default=10, help='iter number of epochs for training')
 parser.add_argument('--global-step', type=int, default=0, help='global step for batch training')
-parser.add_argument('--init-embed', type=str, default='w2v', help='rand|w2v|sswe')
-parser.add_argument('--init-sswe-embed', type=str, default='rand', help='rand|w2v to init SSWE Model.')
-parser.add_argument('--attention', type=str, default='pos', help='word|pos|null')
+parser.add_argument('--init-embed', type=str, default='sswe', help='rand|w2v|sswe')
+parser.add_argument('--init-sswe-embed', type=str, default='w2v', help='rand|w2v to init SSWE Model.')
+parser.add_argument('--attention', type=str, default='null', help='word|pos|null')
 parser.add_argument('--num-workers', type=int, default=4, help='number of workers to load data for training')
 parser.add_argument('--log-interval', type=int, default=10, help='report interval')
 

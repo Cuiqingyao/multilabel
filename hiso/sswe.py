@@ -18,10 +18,10 @@ import sys
 from tqdm import tqdm
 # 设置gpu
 os.environ['CUDA_DEVICE_ORDER']='PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES']='0'
+os.environ['CUDA_VISIBLE_DEVICES']='1'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-experimental_msg = 'W2V_NULL'
+experimental_msg = 'W2V_NULL_alpha07'
 vis = Visualizer(env='SSWE',port=8099,log_dir='myruns/sswe_%s_%s'%(time.strftime('%m-%d-%H-%M',time.localtime()),experimental_msg))
 
 
@@ -238,7 +238,7 @@ def trainSSWE():
                 print
     # save model
     timestamp = time.strftime('%m-%d-%H:%M',time.localtime())
-    torch.save(sswe.state_dict(),'%s/docs/model/sswe_%s'%(BASE_DIR,timestamp))
+    torch.save(sswe.state_dict(),'%s/docs/model/sswe_alpha%s_%s'%(BASE_DIR, params.sswe_alpha, timestamp))
     lookup = sswe.lookup.weight.data.cpu().numpy() 
     pickle.dump(lookup, open('%s/docs/model/lookup_alpha%s_%s'%(BASE_DIR, params.sswe_alpha, timestamp),'wb'))
     

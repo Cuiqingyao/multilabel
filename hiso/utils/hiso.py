@@ -28,16 +28,16 @@ class HISO(nn.Module):
         self.pos_embed = nn.Embedding(opt.pos_size, opt.embed_dim)
         self.initEmbedWeight()
         # conv layer
-        self.fconv1d = [nn.Conv1d(in_channels=opt.embed_dim, out_channels=48, kernel_size=2, padding=1).cuda(),
-                        nn.Conv1d(in_channels=opt.embed_dim, out_channels=48, kernel_size=3, padding=1).cuda(),
-                        nn.Conv1d(in_channels=opt.embed_dim, out_channels=48, kernel_size=4, padding=2).cuda()]
+        self.fconv1d = [nn.Conv1d(in_channels=opt.embed_dim, out_channels=48, kernel_size=5, padding=1).cuda(),
+                        nn.Conv1d(in_channels=opt.embed_dim, out_channels=48, kernel_size=6, padding=1).cuda(),
+                        nn.Conv1d(in_channels=opt.embed_dim, out_channels=48, kernel_size=7, padding=2).cuda()]
         self.dconv1d = [nn.Conv1d(in_channels=opt.embed_dim, out_channels=128, kernel_size=1, stride=1).cuda(),
                         nn.Conv1d(in_channels=128, out_channels=128, kernel_size=2, stride=1).cuda(),
                         nn.Conv1d(in_channels=128, out_channels=100, kernel_size=2, stride=1).cuda()]
-        self.word_conv = self.deepConv
-        self.pos_conv = self.deepConv
+        self.word_conv = self.flatConv
+        self.pos_conv = self.flatConv
         # Bi-GRU Layer
-        self.wd_bi_gru = nn.GRU(input_size = 100,
+        self.wd_bi_gru = nn.GRU(input_size = 144,
                 hidden_size = opt.ghid_size,
                 num_layers = opt.glayer,
                 bias = True,
@@ -49,7 +49,7 @@ class HISO(nn.Module):
         self.word_atten_proj = nn.Parameter(torch.randn(2*opt.ghid_size, 1))
 
         # Bi-GRU Layer
-        self.pos_bi_gru = nn.GRU(input_size = 100,
+        self.pos_bi_gru = nn.GRU(input_size = 144,
                 hidden_size = opt.ghid_size,
                 num_layers = opt.glayer,
                 bias = True, 

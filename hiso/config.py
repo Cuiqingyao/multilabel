@@ -29,7 +29,7 @@ parser.add_argument('--lr', type=float, default=5e-3, help='initial learning rat
 parser.add_argument('--clip', type=float, default=0, help='clip learning rate')
 parser.add_argument('--epochs', type=int, default=10, help='iter number of epochs for training')
 parser.add_argument('--global-step', type=int, default=0, help='global step for batch training')
-parser.add_argument('--init-embed', type=str, default='sswe', help='rand|w2v|sswe')
+parser.add_argument('--init-embed', type=str, default='w2v', help='rand|w2v|sswe')
 parser.add_argument('--init-sswe-embed', type=str, default='rand', help='rand|w2v to init SSWE Model.')
 parser.add_argument('--attention', type=str, default='null', help='word|pos|null')
 parser.add_argument('--num-workers', type=int, default=4, help='number of workers to load data for training')
